@@ -6,104 +6,233 @@
   <title>Certificate Verification | Fusion Klassroom Edutech Limited</title>
 
   <style>
+    :root {
+      --primary: #1f4e79;
+      --primary-dark: #153a5c;
+      --success: #1f7a3f;
+      --danger: #b42318;
+      --text: #1f2933;
+      --muted: #64748b;
+      --border: #e5e7eb;
+      --background: #f4f7fb;
+      --card: #ffffff;
+      --soft-blue: #eef4fb;
+      --soft-green: #edf8f1;
+      --soft-red: #fff1f0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f7fb;
-      color: #222;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #eef3f8 0%, #f8fafc 100%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 24px;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 820px;
     }
 
     .card {
-      max-width: 760px;
       width: 100%;
-      background: #ffffff;
-      border-radius: 16px;
-      padding: 36px;
-      box-shadow: 0 8px 28px rgba(0,0,0,0.08);
-      border-top: 6px solid #1f4e79;
+      background: var(--card);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 14px 40px rgba(15, 23, 42, 0.10);
+      border: 1px solid rgba(226, 232, 240, 0.9);
     }
 
-    h1 {
-      margin-top: 0;
-      color: #1f4e79;
+    .header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #ffffff;
+      padding: 30px 36px;
       text-align: center;
     }
 
-    .valid {
-      color: #1f7a3f;
-      font-size: 22px;
-      font-weight: bold;
-      text-align: center;
-      margin: 20px 0;
+    .header h1 {
+      margin: 0;
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
     }
 
-    .invalid {
-      color: #b00020;
-      font-size: 22px;
-      font-weight: bold;
+    .header p {
+      margin: 10px 0 0;
+      font-size: 15px;
+      opacity: 0.9;
+    }
+
+    .content {
+      padding: 34px 36px 28px;
+    }
+
+    .status-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 16px 20px;
+      border-radius: 12px;
+      margin-bottom: 26px;
+      font-size: 20px;
+      font-weight: 700;
       text-align: center;
-      margin: 20px 0;
+    }
+
+    .status-valid {
+      background: var(--soft-green);
+      color: var(--success);
+      border: 1px solid #b7e4c7;
+    }
+
+    .status-invalid {
+      background: var(--soft-red);
+      color: var(--danger);
+      border: 1px solid #fecaca;
+    }
+
+    .status-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .status-valid .status-icon {
+      background: var(--success);
+      color: #ffffff;
+    }
+
+    .status-invalid .status-icon {
+      background: var(--danger);
+      color: #ffffff;
+    }
+
+    .details {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 14px;
     }
 
     .row {
-      display: flex;
-      border-bottom: 1px solid #eee;
-      padding: 12px 0;
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      border-bottom: 1px solid var(--border);
       font-size: 16px;
     }
 
+    .row:last-child {
+      border-bottom: none;
+    }
+
     .label {
-      width: 190px;
-      font-weight: bold;
-      color: #333;
+      background: #f8fafc;
+      padding: 14px 16px;
+      font-weight: 700;
+      color: #334155;
+      border-right: 1px solid var(--border);
     }
 
     .value {
-      flex: 1;
+      padding: 14px 16px;
+      color: #111827;
+      word-break: break-word;
     }
 
     .note {
       margin-top: 24px;
-      padding: 16px;
-      background: #eef4fb;
+      padding: 18px;
+      background: var(--soft-blue);
+      border-left: 4px solid var(--primary);
       border-radius: 10px;
       font-size: 15px;
-      line-height: 1.5;
+      line-height: 1.6;
+      color: #334155;
     }
 
     .footer {
-      margin-top: 28px;
+      padding: 20px 36px 26px;
       text-align: center;
-      font-size: 14px;
-      color: #666;
+      font-size: 13px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      background: #fbfdff;
     }
 
-    @media (max-width: 600px) {
+    .footer strong {
+      color: #334155;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 14px;
+        align-items: flex-start;
+      }
+
+      .header {
+        padding: 26px 20px;
+      }
+
+      .header h1 {
+        font-size: 24px;
+      }
+
+      .content {
+        padding: 24px 18px;
+      }
+
       .row {
-        display: block;
+        grid-template-columns: 1fr;
       }
 
       .label {
-        width: 100%;
-        margin-bottom: 4px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 8px;
+      }
+
+      .value {
+        padding-top: 10px;
+      }
+
+      .footer {
+        padding: 18px;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="card">
-    <h1>Certificate Verification</h1>
+  <div class="container">
+    <div class="card">
+      <div class="header">
+        <h1>Certificate Verification</h1>
+        <p>Fusion Klassroom Edutech Limited</p>
+      </div>
 
-    <div id="result"></div>
+      <div class="content">
+        <div id="result"></div>
+      </div>
 
-    <div class="footer">
-      Fusion Klassroom Edutech Limited | Official Certificate Verification
+      <div class="footer">
+        <strong>Fusion Klassroom Edutech Limited</strong><br />
+        Official Certificate Verification System
+      </div>
     </div>
   </div>
 
@@ -114,42 +243,64 @@
     const certId = params.get("id");
     const resultDiv = document.getElementById("result");
 
-    if (!certId) {
+    function escapeHTML(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function renderRow(label, value) {
+      return `
+        <div class="row">
+          <div class="label">${escapeHTML(label)}</div>
+          <div class="value">${escapeHTML(value)}</div>
+        </div>
+      `;
+    }
+
+    if (typeof certificates === "undefined") {
       resultDiv.innerHTML = `
-        <div class="invalid">Certificate ID Missing</div>
+        <div class="status-box status-invalid">
+          <span class="status-icon">!</span>
+          Verification Data Unavailable
+        </div>
+
         <div class="note">
-          Please scan the QR code again or enter a valid certificate verification URL.
+          The certificate verification data could not be loaded at this time.
+          Please try again later or contact Fusion Klassroom Edutech Limited
+          for manual verification.
+        </div>
+      `;
+    } else if (!certId) {
+      resultDiv.innerHTML = `
+        <div class="status-box status-invalid">
+          <span class="status-icon">!</span>
+          Certificate ID Missing
+        </div>
+
+        <div class="note">
+          No certificate ID was found in the verification link. Please scan the QR code again
+          or use the complete certificate verification URL.
         </div>
       `;
     } else if (certificates[certId]) {
       const cert = certificates[certId];
 
       resultDiv.innerHTML = `
-        <div class="valid">✅ Certificate Valid</div>
-
-        <div class="row">
-          <div class="label">Name</div>
-          <div class="value">${cert.name}</div>
+        <div class="status-box status-valid">
+          <span class="status-icon">✓</span>
+          Certificate Verified
         </div>
 
-        <div class="row">
-          <div class="label">Program</div>
-          <div class="value">${cert.program}</div>
-        </div>
-
-        <div class="row">
-          <div class="label">Certificate ID</div>
-          <div class="value">${certId}</div>
-        </div>
-
-        <div class="row">
-          <div class="label">Issue Date</div>
-          <div class="value">${cert.issueDate}</div>
-        </div>
-
-        <div class="row">
-          <div class="label">Status</div>
-          <div class="value">${cert.status}</div>
+        <div class="details">
+          ${renderRow("Name", cert.name)}
+          ${renderRow("Program", cert.program)}
+          ${renderRow("Certificate ID", certId)}
+          ${renderRow("Issue Date", cert.issueDate)}
+          ${renderRow("Status", cert.status)}
         </div>
 
         <div class="note">
@@ -159,11 +310,13 @@
       `;
     } else {
       resultDiv.innerHTML = `
-        <div class="invalid">❌ Certificate Not Found</div>
+        <div class="status-box status-invalid">
+          <span class="status-icon">!</span>
+          Certificate Not Found
+        </div>
 
-        <div class="row">
-          <div class="label">Certificate ID</div>
-          <div class="value">${certId}</div>
+        <div class="details">
+          ${renderRow("Certificate ID", certId)}
         </div>
 
         <div class="note">
