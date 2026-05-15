@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Certificate Verification | Fusion Klassroom Edutech Limited</title>
+
   <style>
     body {
       margin: 0;
@@ -18,33 +19,52 @@
     }
 
     .card {
-      max-width: 720px;
+      max-width: 760px;
       width: 100%;
       background: #ffffff;
       border-radius: 16px;
       padding: 36px;
       box-shadow: 0 8px 28px rgba(0,0,0,0.08);
-      text-align: center;
       border-top: 6px solid #1f4e79;
     }
 
-    .status {
-      font-size: 18px;
-      font-weight: bold;
-      color: #1f7a3f;
-      margin-bottom: 16px;
-    }
-
     h1 {
-      margin: 0 0 16px;
-      font-size: 30px;
+      margin-top: 0;
       color: #1f4e79;
+      text-align: center;
     }
 
-    p {
-      font-size: 17px;
-      line-height: 1.6;
-      margin: 12px 0;
+    .valid {
+      color: #1f7a3f;
+      font-size: 22px;
+      font-weight: bold;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .invalid {
+      color: #b00020;
+      font-size: 22px;
+      font-weight: bold;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .row {
+      display: flex;
+      border-bottom: 1px solid #eee;
+      padding: 12px 0;
+      font-size: 16px;
+    }
+
+    .label {
+      width: 190px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .value {
+      flex: 1;
     }
 
     .note {
@@ -53,42 +73,106 @@
       background: #eef4fb;
       border-radius: 10px;
       font-size: 15px;
+      line-height: 1.5;
     }
 
     .footer {
-      margin-top: 26px;
+      margin-top: 28px;
+      text-align: center;
       font-size: 14px;
       color: #666;
     }
+
+    @media (max-width: 600px) {
+      .row {
+        display: block;
+      }
+
+      .label {
+        width: 100%;
+        margin-bottom: 4px;
+      }
+    }
   </style>
 </head>
+
 <body>
   <div class="card">
     <h1>Certificate Verification</h1>
 
-    <div class="status">Verification Portal Under Setup</div>
-
-    <p>
-      This page is used for verification of certificates issued by
-      <strong>Fusion Klassroom Edutech Limited</strong>.
-    </p>
-
-    <p>
-      The certificate is part of the
-      <strong>Machine Learning Engineer OJT Internship</strong>
-      completion record maintained by the organization.
-    </p>
-
-    <div class="note">
-      For manual verification, please share the
-      <strong>Certificate ID printed on the certificate</strong>
-      with Fusion Klassroom Edutech Limited.
-      Detailed digital verification is currently being configured.
-    </div>
+    <div id="result"></div>
 
     <div class="footer">
       Fusion Klassroom Edutech Limited | Official Certificate Verification
     </div>
   </div>
+
+  <script src="data.js"></script>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const certId = params.get("id");
+    const resultDiv = document.getElementById("result");
+
+    if (!certId) {
+      resultDiv.innerHTML = `
+        <div class="invalid">Certificate ID Missing</div>
+        <div class="note">
+          Please scan the QR code again or enter a valid certificate verification URL.
+        </div>
+      `;
+    } else if (certificates[certId]) {
+      const cert = certificates[certId];
+
+      resultDiv.innerHTML = `
+        <div class="valid">✅ Certificate Valid</div>
+
+        <div class="row">
+          <div class="label">Name</div>
+          <div class="value">${cert.name}</div>
+        </div>
+
+        <div class="row">
+          <div class="label">Program</div>
+          <div class="value">${cert.program}</div>
+        </div>
+
+        <div class="row">
+          <div class="label">Certificate ID</div>
+          <div class="value">${certId}</div>
+        </div>
+
+        <div class="row">
+          <div class="label">Issue Date</div>
+          <div class="value">${cert.issueDate}</div>
+        </div>
+
+        <div class="row">
+          <div class="label">Status</div>
+          <div class="value">${cert.status}</div>
+        </div>
+
+        <div class="note">
+          This certificate has been verified against the official certificate record
+          maintained by Fusion Klassroom Edutech Limited.
+        </div>
+      `;
+    } else {
+      resultDiv.innerHTML = `
+        <div class="invalid">❌ Certificate Not Found</div>
+
+        <div class="row">
+          <div class="label">Certificate ID</div>
+          <div class="value">${certId}</div>
+        </div>
+
+        <div class="note">
+          This certificate ID is not available in the official records of
+          Fusion Klassroom Edutech Limited. Please contact the organization
+          for manual verification.
+        </div>
+      `;
+    }
+  </script>
 </body>
 </html>
